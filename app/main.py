@@ -128,7 +128,11 @@ def startup_event() -> None:
     if not os.path.exists(MODEL_PATH):
         raise RuntimeError(f"Model file not found at {MODEL_PATH}")
 
-    model = tf.keras.models.load_model(MODEL_PATH, compile=False)
+    try:
+        import tf_keras
+        model = tf_keras.models.load_model(MODEL_PATH, compile=False)
+    except ImportError:
+        model = tf.keras.models.load_model(MODEL_PATH, compile=False)
     output_dim = _get_output_dim(model)
     class_names = _resolve_class_names(output_dim)
 
