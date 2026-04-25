@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  lung-api:
+    build: .
+    container_name: lung-cancer-api
+    ports:
+      - "8000:8000"
+    environment:
+      MODEL_PATH: lung_cancer_model_final2.h5
+      IMAGE_SIZE: 224
+      # Option 1: use comma-separated class labels
+      # CLASS_NAMES: adenocarcinoma,large_cell_carcinoma,normal,squamous_cell_carcinoma
+      # Option 2: use a file path for labels
+      # CLASS_NAMES_PATH: class_names.json
+    restart: unless-stopped
